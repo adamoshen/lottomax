@@ -34,3 +34,6 @@ vignettes/*.pdf
 
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
+
+# Since using github pages don't sync output file in main branch
+output/
