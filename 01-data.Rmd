@@ -15,6 +15,7 @@ output:
         google: "IBM Plex Sans"
       code_font:
         google: "IBM Plex Mono"
+pandoc_args: "-smart"
 ---
 
 ```{r, include=FALSE}
