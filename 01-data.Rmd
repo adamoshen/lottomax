@@ -84,4 +84,7 @@ sessioninfo::package_info(
 )
 ```
 
+```{r, include=FALSE}
+rmarkdown::render("01-data.Rmd", output_dir="./output")
+```
 
