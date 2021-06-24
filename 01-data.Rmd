@@ -46,8 +46,6 @@ nums2021 <- read_html(url2021) %>%
 
 ```{r}
 getnums <- function(year){
-  if (!is.character(year)) stop("Enter the year as a string!")
-  
   yearurl <- paste0("https://www.lottomaxnumbers.com/numbers/", year)
   
   read_html(yearurl) %>%
@@ -61,7 +59,7 @@ getnums <- function(year){
 Just going to row-bind it all.
 
 ```{r}
-input_years <- as.character(2019:2021) %>%
+input_years <- 2019:2021 %>%
   set_names(., nm=.)
 
 lottomax <- map_dfr(input_years, getnums, .id="year")
