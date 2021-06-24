@@ -34,7 +34,7 @@ library(lubridate)
 ```{r}
 lottomax <- readRDS("./data/lottomax.RDS")
 
-head(lottomax, n=10)
+lottomax
 
 as.character(lottomax[1,2])
 
@@ -46,11 +46,42 @@ as.character(lottomax[1,3])
 To do:
 
 - `date`: remove the non-space characters and the "With Max Millions!" phrase
-- Need to filter to only include dates after May 14, 2019 since LottoMax was
-changed to now have 50 possible numbers instead of 49
+- Need to filter to only include dates after May 14, 2019 (inclusive) since LottoMax
+was changed to now have 50 possible numbers instead of 49
 - `result`: remove the non-space characters and reformat this column somehow so
 that the numbers are a easy to access and manipulate
-- Also need to keep in mind that the last number is a "bonus" number
+- Remember that the last number is a "bonus" number
+- Preferable to sort data too
+
+```{r}
+lottomax %>%
+  # Convert `year` to factor
+  mutate(across(year, as.factor)) %>%
+  # Repair `date` to be an actual date
+  mutate(
+    # Remove excessive whitespace from `date` column
+    date = str_squish(date),
+    # Remove extra text
+    date = str_remove(date, pattern="With Max Millions!"),
+    # Parse date text in mm/dd/yyyy format
+    date = mdy(date)
+  ) %>%
+  # Keep only rows that were drawn after May 14, 2019 (inclusive)
+  filter(date >= mdy("May 14 2019")) %>%
+  # Remove excessive whitespace from `result` column
+  mutate(result = str_squish(result)) %>%
+
+  
+  # Do I actually want to make 7+1 columns or keep it 1+1...
+  
+  # Separate the regular numbers from the bonus numbers
+  # Set `remove=FALSE` to check if we did it correctly
+  separate(result, into=c("nums", "bonus"), sep=-2, remove=FALSE) %>%
+  # Conversion of strings to numbers that we can work with
+  mutate(
+    across(bonus, parse_integer)
+  )
+```
 
 
 
