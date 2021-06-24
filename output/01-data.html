@@ -342,20 +342,18 @@ div.tocify {
 <div id="general-case" class="section level2">
 <h2>General case</h2>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>getnums <span class="ot">&lt;-</span> <span class="cf">function</span>(year){</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.character</span>(year)) <span class="fu">stop</span>(<span class="st">&quot;Enter the year as a string!&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  yearurl <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;https://www.lottomaxnumbers.com/numbers/&quot;</span>, year)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  yearurl <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;https://www.lottomaxnumbers.com/numbers/&quot;</span>, year)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_html</span>(yearurl) <span class="sc">%&gt;%</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_element</span>(<span class="at">css=</span><span class="st">&quot;table&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_table</span>(<span class="at">header=</span><span class="cn">TRUE</span>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_html</span>(yearurl) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_element</span>(<span class="at">css=</span><span class="st">&quot;table&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_table</span>(<span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 </div>
 <div id="get-the-data" class="section level1">
 <h1>Get the data</h1>
 <p>Just going to row-bind it all.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>input_years <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="dv">2019</span><span class="sc">:</span><span class="dv">2021</span>) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>input_years <span class="ot">&lt;-</span> <span class="dv">2019</span><span class="sc">:</span><span class="dv">2021</span> <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_names</span>(., <span class="at">nm=</span>.)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>lottomax <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(input_years, getnums, <span class="at">.id=</span><span class="st">&quot;year&quot;</span>)</span></code></pre></div>
@@ -373,10 +371,10 @@ div.tocify {
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>##  package   * version date       lib source        
 ##  bslib       0.2.5.1 2021-05-18 [1] CRAN (R 4.0.5)
-##  dplyr       1.0.5   2021-03-05 [1] CRAN (R 4.0.4)
-##  purrr       0.3.4   2020-04-17 [1] CRAN (R 4.0.4)
+##  dplyr     * 1.0.5   2021-03-05 [1] CRAN (R 4.0.4)
+##  purrr     * 0.3.4   2020-04-17 [1] CRAN (R 4.0.4)
 ##  rmarkdown   2.9     2021-06-15 [1] CRAN (R 4.0.5)
-##  rvest       1.0.0   2021-03-09 [1] CRAN (R 4.0.4)
+##  rvest     * 1.0.0   2021-03-09 [1] CRAN (R 4.0.4)
 ## 
 ## [1] C:/Users/Adam/Documents/R/win-library/4.0
 ## [2] C:/Program Files/R/R-4.0.3/library</code></pre>
