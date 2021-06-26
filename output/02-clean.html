@@ -389,12 +389,10 @@ div.tocify {
 <span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Set `remove=FALSE` to check if we did it correctly</span></span>
 <span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(result, <span class="at">into=</span><span class="fu">c</span>(glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">&quot;num{1:7}&quot;</span>), <span class="st">&quot;bonus&quot;</span>), <span class="at">sep=</span><span class="st">&quot; &quot;</span>, <span class="at">remove=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Conversion of strings to numbers that we can work with</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(<span class="fu">c</span>(num1<span class="sc">:</span>num7, bonus), parse_integer)</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date)</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>lottomax_wide</span></code></pre></div>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(num1<span class="sc">:</span>num7, bonus), parse_integer)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date)</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>lottomax_wide</span></code></pre></div>
 <pre><code>## # A tibble: 221 x 11
 ##    year  date       result                   num1  num2  num3  num4  num5  num6  num7 bonus
 ##    &lt;fct&gt; &lt;date&gt;     &lt;chr&gt;                   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
@@ -435,7 +433,7 @@ div.tocify {
 ##  9 2019  2019-05-17 4 21 23 39 40 42 50 17 num1       4
 ## 10 2019  2019-05-17 4 21 23 39 40 42 50 17 num2      21
 ## # ... with 1,758 more rows</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(lottomax_long, <span class="st">&quot;./data/lottomax_wide.RDS&quot;</span>, <span class="at">version=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(lottomax_long, <span class="st">&quot;./data/lottomax_long.RDS&quot;</span>, <span class="at">version=</span><span class="dv">2</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="session-info" class="section level1">
