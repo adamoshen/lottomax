@@ -2,7 +2,7 @@
 title: "Cleaning LottoMax data"
 author: "Adam Shen"
 date: "June 22, 2021"
-output: 
+output:
   html_document:
     toc: true
     toc_float:
@@ -53,8 +53,15 @@ that the numbers are a easy to access and manipulate
 - Remember that the last number is a "bonus" number
 - Preferable to sort data too
 
+A wide and long version of the data set will likely be useful.
+
+- Wide version for analysis of "number positions"
+- Long version for regular numerical summaries
+
+## Wide version
+
 ```{r}
-lottomax %>%
+lottomax_wide <- lottomax %>%
   # Convert `year` to factor
   mutate(across(year, as.factor)) %>%
   # Repair `date` to be an actual date
@@ -70,42 +77,44 @@ lottomax %>%
   filter(date >= mdy("May 14 2019")) %>%
   # Remove excessive whitespace from `result` column
   mutate(result = str_squish(result)) %>%
-
-  
-  # Do I actually want to make 7+1 columns or keep it 1+1...
-  
-  # Separate the regular numbers from the bonus numbers
+  # Separate all numbers into their own columns
   # Set `remove=FALSE` to check if we did it correctly
-  separate(result, into=c("nums", "bonus"), sep=-2, remove=FALSE) %>%
+  separate(result, into=c(glue::glue("num{1:7}"), "bonus"), sep=" ", remove=FALSE) %>%
   # Conversion of strings to numbers that we can work with
-  mutate(
-    across(bonus, parse_integer)
-  )
+  mutate(across(c(num1:num7, bonus), parse_integer)) %>%
+  arrange(date)
+
+lottomax_wide
 ```
 
+```{r, eval=FALSE}
+saveRDS(lottomax_wide, "./data/lottomax_wide.RDS", version=2)
+```
 
+## Long version
 
+```{r}
+lottomax_long <- lottomax_wide %>%
+  pivot_longer(
+    cols = c(num1:num7, bonus),
+    names_to = "role",
+    values_to = "number"
+  )
 
+lottomax_long
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
+```{r, eval=FALSE}
+saveRDS(lottomax_long, "./data/lottomax_long.RDS", version=2)
+```
 
 
 # Session info
 
 ```{r, echo=FALSE}
 sessioninfo::package_info(
-  pkgs = c("lubridate"),
+  pkgs = c("tibble", "dplyr", "stringr", "tidyr", "glue", "lubridate",
+           "bslib", "rmarkdown"),
   dependencies = FALSE
 )
 ```
