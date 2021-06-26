@@ -1,3 +1,5 @@
+&#x1F4B0; An analysis of LottoMax winning numbers.
+
 ---
 
 [Obtaining the data](./output/01-data.html)
