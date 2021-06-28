@@ -11,7 +11,7 @@
 
 <meta name="author" content="Adam Shen" />
 
-<meta name="date" content="2021-06-22" />
+<meta name="date" content="2021-06-28" />
 
 <title>Cleaning LottoMax data</title>
 
@@ -318,7 +318,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Cleaning LottoMax data</h1>
 <h4 class="author">Adam Shen</h4>
-<h4 class="date">June 22, 2021</h4>
+<h4 class="date">June 28, 2021</h4>
 
 </div>
 
@@ -358,18 +358,11 @@ div.tocify {
 <ul>
 <li><code>date</code>: remove the non-space characters and the “With Max Millions!” phrase</li>
 <li>Need to filter to only include dates after May 14, 2019 (inclusive) since LottoMax was changed to now have 50 possible numbers instead of 49</li>
-<li><code>result</code>: remove the non-space characters and reformat this column somehow so that the numbers are a easy to access and manipulate</li>
+<li><code>result</code>: remove the non-space characters and reformat this column so that the numbers are easy to access and manipulate</li>
 <li>Remember that the last number is a “bonus” number</li>
 <li>Preferable to sort data too</li>
 </ul>
-<p>A wide and long version of the data set will likely be useful.</p>
-<ul>
-<li>Wide version for analysis of “number positions”</li>
-<li>Long version for regular numerical summaries</li>
-</ul>
-<div id="wide-version" class="section level2">
-<h2>Wide version</h2>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>lottomax_wide <span class="ot">&lt;-</span> lottomax <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>lottomax_clean <span class="ot">&lt;-</span> lottomax <span class="sc">%&gt;%</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Convert `year` to factor</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(year, as.factor)) <span class="sc">%&gt;%</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Repair `date` to be an actual date</span></span>
@@ -385,14 +378,38 @@ div.tocify {
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date <span class="sc">&gt;=</span> <span class="fu">mdy</span>(<span class="st">&quot;May 14 2019&quot;</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Remove excessive whitespace from `result` column</span></span>
 <span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">result =</span> <span class="fu">str_squish</span>(result)) <span class="sc">%&gt;%</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Separate all numbers into their own columns</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Set `remove=FALSE` to check if we did it correctly</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(result, <span class="at">into=</span><span class="fu">c</span>(glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">&quot;num{1:7}&quot;</span>), <span class="st">&quot;bonus&quot;</span>), <span class="at">sep=</span><span class="st">&quot; &quot;</span>, <span class="at">remove=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Conversion of strings to numbers that we can work with</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(num1<span class="sc">:</span>num7, bonus), parse_integer)) <span class="sc">%&gt;%</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date)</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>lottomax_wide</span></code></pre></div>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>lottomax_clean</span></code></pre></div>
+<pre><code>## # A tibble: 221 x 3
+##    year  date       result                 
+##    &lt;fct&gt; &lt;date&gt;     &lt;chr&gt;                  
+##  1 2019  2019-05-14 9 24 27 33 40 44 48 41 
+##  2 2019  2019-05-17 4 21 23 39 40 42 50 17 
+##  3 2019  2019-05-21 2 3 8 18 31 39 50 33   
+##  4 2019  2019-05-24 9 11 15 19 20 35 41 28 
+##  5 2019  2019-05-28 4 9 10 26 27 29 37 14  
+##  6 2019  2019-05-31 6 29 34 39 42 47 50 22 
+##  7 2019  2019-06-04 7 19 22 28 34 41 42 12 
+##  8 2019  2019-06-07 4 8 13 23 25 33 39 17  
+##  9 2019  2019-06-11 18 23 28 32 34 44 50 29
+## 10 2019  2019-06-14 4 11 20 22 37 44 49 13 
+## # ... with 211 more rows</code></pre>
+<p>A wide and long version of the data set will likely be useful.</p>
+<ul>
+<li>Wide version for analysis of “number positions”</li>
+<li>Long version for regular numerical summaries</li>
+</ul>
+<div id="wide-version" class="section level2">
+<h2>Wide version</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>lottomax_wide <span class="ot">&lt;-</span> lottomax_clean <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Separate all numbers into their own columns</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Set `remove=FALSE` to check if we did it correctly</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(result, <span class="at">into=</span><span class="fu">c</span>(glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">&quot;num{1:7}&quot;</span>), <span class="st">&quot;bonus&quot;</span>), <span class="at">sep=</span><span class="st">&quot; &quot;</span>, <span class="at">remove=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Conversion of strings to numbers that we can work with</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(num1<span class="sc">:</span>num7, bonus), parse_integer)) </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>lottomax_wide</span></code></pre></div>
 <pre><code>## # A tibble: 221 x 11
 ##    year  date       result                   num1  num2  num3  num4  num5  num6  num7 bonus
 ##    &lt;fct&gt; &lt;date&gt;     &lt;chr&gt;                   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
@@ -407,18 +424,18 @@ div.tocify {
 ##  9 2019  2019-06-11 18 23 28 32 34 44 50 29    18    23    28    32    34    44    50    29
 ## 10 2019  2019-06-14 4 11 20 22 37 44 49 13      4    11    20    22    37    44    49    13
 ## # ... with 211 more rows</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(lottomax_wide, <span class="st">&quot;./data/lottomax_wide.RDS&quot;</span>, <span class="at">version=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(lottomax_wide, <span class="st">&quot;./data/lottomax_wide.RDS&quot;</span>, <span class="at">version=</span><span class="dv">2</span>)</span></code></pre></div>
 </div>
 <div id="long-version" class="section level2">
 <h2>Long version</h2>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>lottomax_long <span class="ot">&lt;-</span> lottomax_wide <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(num1<span class="sc">:</span>num7, bonus),</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;role&quot;</span>,</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;number&quot;</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>lottomax_long</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>lottomax_long <span class="ot">&lt;-</span> lottomax_wide <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(num1<span class="sc">:</span>num7, bonus),</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;role&quot;</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;number&quot;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>lottomax_long</span></code></pre></div>
 <pre><code>## # A tibble: 1,768 x 5
 ##    year  date       result                 role  number
 ##    &lt;fct&gt; &lt;date&gt;     &lt;chr&gt;                  &lt;chr&gt;  &lt;int&gt;
@@ -433,7 +450,7 @@ div.tocify {
 ##  9 2019  2019-05-17 4 21 23 39 40 42 50 17 num1       4
 ## 10 2019  2019-05-17 4 21 23 39 40 42 50 17 num2      21
 ## # ... with 1,758 more rows</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(lottomax_long, <span class="st">&quot;./data/lottomax_long.RDS&quot;</span>, <span class="at">version=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(lottomax_long, <span class="st">&quot;./data/lottomax_long.RDS&quot;</span>, <span class="at">version=</span><span class="dv">2</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="session-info" class="section level1">
