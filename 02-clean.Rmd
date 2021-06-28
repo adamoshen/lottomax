@@ -1,7 +1,7 @@
 ---
 title: "Cleaning LottoMax data"
 author: "Adam Shen"
-date: "June 22, 2021"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
 output:
   html_document:
     toc: true
@@ -47,20 +47,13 @@ To do:
 - `date`: remove the non-space characters and the "With Max Millions!" phrase
 - Need to filter to only include dates after May 14, 2019 (inclusive) since LottoMax
 was changed to now have 50 possible numbers instead of 49
-- `result`: remove the non-space characters and reformat this column somehow so
-that the numbers are a easy to access and manipulate
+- `result`: remove the non-space characters and reformat this column so that the numbers
+are easy to access and manipulate
 - Remember that the last number is a "bonus" number
 - Preferable to sort data too
 
-A wide and long version of the data set will likely be useful.
-
-- Wide version for analysis of "number positions"
-- Long version for regular numerical summaries
-
-## Wide version
-
 ```{r}
-lottomax_wide <- lottomax %>%
+lottomax_clean <- lottomax %>%
   # Convert `year` to factor
   mutate(across(year, as.factor)) %>%
   # Repair `date` to be an actual date
@@ -76,12 +69,25 @@ lottomax_wide <- lottomax %>%
   filter(date >= mdy("May 14 2019")) %>%
   # Remove excessive whitespace from `result` column
   mutate(result = str_squish(result)) %>%
+  arrange(date)
+
+lottomax_clean
+```
+
+A wide and long version of the data set will likely be useful.
+
+- Wide version for analysis of "number positions"
+- Long version for regular numerical summaries
+
+## Wide version
+
+```{r}
+lottomax_wide <- lottomax_clean %>%
   # Separate all numbers into their own columns
   # Set `remove=FALSE` to check if we did it correctly
   separate(result, into=c(glue::glue("num{1:7}"), "bonus"), sep=" ", remove=FALSE) %>%
   # Conversion of strings to numbers that we can work with
-  mutate(across(c(num1:num7, bonus), parse_integer)) %>%
-  arrange(date)
+  mutate(across(c(num1:num7, bonus), parse_integer)) 
 
 lottomax_wide
 ```
