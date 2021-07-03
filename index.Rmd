@@ -1,5 +1,6 @@
 ---
-title: "An Analysis of LottoMax Winning Numbers"
+title: "LottoMax"
+subtitle: "An Analysis of Winning Numbers"
 author: "Adam Shen"
 date: "`r format(Sys.Date(), '%B %d, %Y')`"
 site: bookdown::bookdown_site
