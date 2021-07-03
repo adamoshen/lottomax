@@ -7,3 +7,10 @@ bookdown::bs4_book:
       google: "IBM Plex Serif"
     code_font:
       google: "IBM Plex Mono"
+bookdown::gitbook:
+  config:
+    search: no
+    info: no
+    sharing: no
+  highlight: pygments
+  css: gitbook.css
