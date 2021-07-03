@@ -37,3 +37,4 @@ rsconnect/
 
 # Bookdown
 _book/
+_main.rds
