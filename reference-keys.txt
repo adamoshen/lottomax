@@ -1,0 +1,16 @@
+obtaining-the-data
+packages
+create-function-to-get-data-for-each-year
+try-2021
+general-case
+get-the-data
+cleaning-the-data
+packages-1
+load-the-data
+clean-the-data
+wide-version
+long-version
+visualisation
+packages-2
+load-the-data-1
+visualise-the-data
