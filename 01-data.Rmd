@@ -1,27 +1,10 @@
----
-title: "Obtaining LottoMax data"
-author: "Adam Shen"
-date: "`r format(Sys.Date(), '%B %d, %Y')`"
-output: 
-  html_document:
-    toc: true
-    toc_float:
-      collapsed: true
-      smooth_scroll: false
-    highlight: tango
-    theme:
-      bootswatch: cosmo
-      base_font:
-        google: "IBM Plex Sans"
-      code_font:
-        google: "IBM Plex Mono"
----
+# Obtaining the data
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE)
 ```
 
-# Packages
+## Packages
 
 ```{r}
 library(rvest)
@@ -29,9 +12,9 @@ library(dplyr)
 library(purrr)
 ```
 
-# Create function to get data for each year
+## Create function to get data for each year
 
-## Try 2021
+### Try 2021
 
 ```{r}
 url2021 <- "https://www.lottomaxnumbers.com/numbers/2021"
@@ -41,7 +24,7 @@ nums2021 <- read_html(url2021) %>%
   html_table(header=TRUE)
 ```
 
-## General case
+### General case
 
 ```{r}
 getnums <- function(year){
@@ -53,7 +36,7 @@ getnums <- function(year){
 }
 ```
 
-# Get the data
+## Get the data
 
 Just going to row-bind it all.
 
@@ -71,17 +54,4 @@ lottomax <- lottomax %>%
   rename("date" = "Result Date:", "result" = "Draw Result:")
 
 saveRDS(lottomax, "./data/lottomax.RDS", version=2)
-```
-
-# Session info
-
-```{r, eval=TRUE}
-sessioninfo::package_info(
-  pkgs = c("rvest", "dplyr", "purrr", "bslib", "rmarkdown"),
-  dependencies = FALSE
-)
-```
-
-```{r, include=FALSE}
-rmarkdown::render("01-data.Rmd", output_dir="./output")
 ```

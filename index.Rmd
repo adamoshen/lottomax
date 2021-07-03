@@ -1,0 +1,25 @@
+---
+title: "An Analysis of LottoMax Winning Numbers"
+author: "Adam Shen"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+site: bookdown::bookdown_site
+---
+
+# Introduction {-}
+
+This is a placeholder sentence.
+
+## Session info {-}
+
+```{r, echo=FALSE}
+R.version.string
+
+sessioninfo::package_info(
+  pkgs = c(
+    "tibble", "dplyr", "bookdown", "ggplot2",
+    "rmarkdown", "stringr", "tidyr", "lubridate",
+    "purrr", "rvest", "bslib", "glue"
+  ),
+  dependencies = FALSE
+)
+```

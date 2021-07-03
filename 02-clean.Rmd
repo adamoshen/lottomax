@@ -1,34 +1,17 @@
----
-title: "Cleaning LottoMax data"
-author: "Adam Shen"
-date: "`r format(Sys.Date(), '%B %d, %Y')`"
-output:
-  html_document:
-    toc: true
-    toc_float:
-      collapsed: true
-      smooth_scroll: false
-    highlight: tango
-    theme:
-      bootswatch: cosmo
-      base_font:
-        google: "IBM Plex Sans"
-      code_font:
-        google: "IBM Plex Mono"
----
+# Cleaning the data
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo=TRUE, warning=FALSE, message=FALSE)
 ```
 
-# Packages
+## Packages
 
 ```{r}
 library(tidyverse)
 library(lubridate)
 ```
 
-# Load the data
+## Load the data
 
 ```{r}
 lottomax <- readRDS("./data/lottomax.RDS")
@@ -40,7 +23,7 @@ as.character(lottomax[1,2])
 as.character(lottomax[1,3])
 ```
 
-# Clean the data
+## Clean the data
 
 To do:
 
@@ -79,7 +62,7 @@ A wide and long version of the data set will likely be useful.
 - Wide version for analysis of "number positions"
 - Long version for regular numerical summaries
 
-## Wide version
+### Wide version
 
 ```{r}
 lottomax_wide <- lottomax_clean %>%
@@ -96,7 +79,7 @@ lottomax_wide
 saveRDS(lottomax_wide, "./data/lottomax_wide.RDS", version=2)
 ```
 
-## Long version
+### Long version
 
 ```{r}
 lottomax_long <- lottomax_wide %>%
@@ -111,20 +94,4 @@ lottomax_long
 
 ```{r, eval=FALSE}
 saveRDS(lottomax_long, "./data/lottomax_long.RDS", version=2)
-```
-
-
-# Session info
-
-```{r, echo=FALSE}
-sessioninfo::package_info(
-  pkgs = c("tibble", "dplyr", "stringr", "tidyr", "glue", "lubridate",
-           "bslib", "rmarkdown"),
-  dependencies = FALSE
-)
-```
-
-
-```{r, eval=FALSE, include=FALSE}
-rmarkdown::render("02-clean.Rmd", output_dir="./output")
 ```
