@@ -13,6 +13,6 @@ bookdown::gitbook:
     search: no
     info: no
     sharing: no
-  highlight: pygments
+  highlight: haddock
   css: gitbook.css
   md_extensions: -smart
