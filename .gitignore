@@ -41,3 +41,4 @@ vignettes/*.pdf
 # Bookdown
 _book
 _bookdown_files
+_main.rds
