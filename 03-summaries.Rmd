@@ -1,0 +1,141 @@
+# Numerical and graphical summaries
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  echo=TRUE, warning=FALSE, message=FALSE, 
+  fig.align="center", fig.width=9, dpi=300
+)
+```
+
+## Packages
+
+```{r}
+library(tidyverse)
+library(lubridate)
+theme_set(theme_bw())
+```
+
+## Load the data
+
+```{r}
+lottomax_wide <- readRDS("./data/lottomax_wide.RDS")
+
+lottomax_wide
+```
+
+```{r}
+lottomax_long <- readRDS("./data/lottomax_long.RDS")
+
+lottomax_long
+```
+
+## Plan
+
+From the wide data:
+
+- Most frequent minimum (`num1`), most frequent maximum (`num7`)
+- Summary statistics for the minimum and maximum
+- Distribution of numbers for each slot, i.e. `num1`, `num2`, ..., `bonus`
+- Distribution of the sum of the seven main numbers
+- Sum of the seven main numbers with respect to time
+
+From the long data:
+
+- For the sake of illustration, repeat everything that was done for the wide data
+- Most frequent numbers in a given month
+- Co-occurrences
+
+
+## Wide data
+
+### Most frequent minimums and maximums - overall
+
+```{r}
+min_counts <- lottomax_wide %>%
+  count(num1) %>%
+  arrange(desc(n))
+
+head(min_counts)
+```
+
+The drawn numbers should be treated as factors when plotting since these are discrete values. Note
+that they are converted to factor when plotting, but we are not modifying the supplied data. If 
+the drawn numbers were instead treated as continuous values, the axis would start at zero which would
+not only look "off", but is not entirely useful since the numbers that are being drawn are between 1
+and 50 (inclusive).
+
+The bar graph will make use of `geom_col` rather than `geom_bar` since we have the counts already.
+`geom_bar` would be used when we need to obtain counts from the data before making the bars.
+
+```{r}
+ggplot(min_counts, aes(x=factor(num1), y=n))+
+  geom_col()+
+  labs(x="Minimum number", y="Count")
+```
+
+Although it would be preferable to reduce some of the vertical gridlines, we should note that some 
+numbers have actually never occurred as the minimum, i.e. the numbers appearing on the x-axis are not
+consecutive. If we wish to reduce some of the gridlines, we need to make sure that all numbers 
+from 1 to 50 are appearing on the x-axis.
+
+We can fill in the unobserved numbers using the `complete` function found within the `tidyr` package.
+
+```{r}
+min_counts_complete <- min_counts %>%
+  complete(
+    num1 = full_seq(1:50, period=1),
+    fill = list(n = 0)
+  )
+```
+
+```{r}
+ggplot(min_counts_complete, aes(x=factor(num1), y=n))+
+  geom_col()+
+  labs(x="Minimum number", y="Count")
+```
+
+Now reusing the same graph as above, let's reduce some vertical gridlines.
+
+```{r}
+ggplot(min_counts_complete, aes(x=factor(num1), y=n))+
+  geom_col()+
+  scale_x_discrete(breaks=factor(seq(1, 50, 7)))+
+  labs(x="Minimum number", y="Count")
+```
+
+Now let's repeat the same thing for the maximum number of each draw.
+
+```{r}
+max_counts <- lottomax_wide %>%
+  count(num7) %>%
+  arrange(desc(n))
+
+head(max_counts)
+```
+
+```{r}
+ggplot(max_counts, aes(x=factor(num7), y=n))+
+  geom_col()+
+  labs(x="Maximum number", y="Count")
+```
+
+```{r}
+max_counts_complete <- max_counts %>%
+  complete(
+    num7 = full_seq(1:50, period=1),
+    fill = list(n = 0)
+  )
+```
+
+```{r}
+ggplot(max_counts_complete, aes(x=factor(num7), y=n))+
+  geom_col()+
+  scale_x_discrete(breaks=factor(seq(1, 50, 7)))+
+  labs(x="Maximum number", y="Count")
+```
+
+
+### Most frequent minimum and maximum - by year
+
+
+### Which numbers have NEVER been in the minimum/maximums in the past two years?
