@@ -10,7 +10,11 @@ load-the-data
 clean-the-data
 wide-version
 long-version
-visualisation
+numerical-and-graphical-summaries
 packages-2
 load-the-data-1
-visualise-the-data
+plan
+wide-data
+most-frequent-minimums-and-maximums---overall
+most-frequent-minimum-and-maximum---by-year
+which-numbers-have-never-been-in-the-minimummaximums-in-the-past-two-years
