@@ -272,7 +272,7 @@ and 50 (inclusive).</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="numerical-and-graphical-summaries.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(min_counts, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(num1), <span class="at">y=</span>n))<span class="sc">+</span></span>
 <span id="cb30-2"><a href="numerical-and-graphical-summaries.html#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
 <span id="cb30-3"><a href="numerical-and-graphical-summaries.html#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Minimum number&quot;</span>, <span class="at">y=</span><span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
-<p><img src="03-summaries_files/figure-html/unnamed-chunk-6-1.png" width="2700" style="display: block; margin: auto;" /></p>
+<p><img src="03-summaries_files/figure-html/unnamed-chunk-6-1.png" width="864" style="display: block; margin: auto;" /></p>
 <p>Although it would be preferable to reduce some of the vertical gridlines, we should note that some
 numbers have actually never occurred as the minimum, i.e. the numbers appearing on the x-axis are not
 consecutive. If we wish to reduce some of the gridlines, we need to make sure that all numbers
@@ -286,13 +286,13 @@ from 1 to 50 are appearing on the x-axis.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="numerical-and-graphical-summaries.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(min_counts_complete, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(num1), <span class="at">y=</span>n))<span class="sc">+</span></span>
 <span id="cb32-2"><a href="numerical-and-graphical-summaries.html#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
 <span id="cb32-3"><a href="numerical-and-graphical-summaries.html#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Minimum number&quot;</span>, <span class="at">y=</span><span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
-<p><img src="03-summaries_files/figure-html/unnamed-chunk-8-1.png" width="2700" style="display: block; margin: auto;" /></p>
+<p><img src="03-summaries_files/figure-html/unnamed-chunk-8-1.png" width="864" style="display: block; margin: auto;" /></p>
 <p>Now reusing the same graph as above, let's reduce some vertical gridlines.</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="numerical-and-graphical-summaries.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(min_counts_complete, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(num1), <span class="at">y=</span>n))<span class="sc">+</span></span>
 <span id="cb33-2"><a href="numerical-and-graphical-summaries.html#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
 <span id="cb33-3"><a href="numerical-and-graphical-summaries.html#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">breaks=</span><span class="fu">factor</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">50</span>, <span class="dv">7</span>)))<span class="sc">+</span></span>
 <span id="cb33-4"><a href="numerical-and-graphical-summaries.html#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Minimum number&quot;</span>, <span class="at">y=</span><span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
-<p><img src="03-summaries_files/figure-html/unnamed-chunk-9-1.png" width="2700" style="display: block; margin: auto;" /></p>
+<p><img src="03-summaries_files/figure-html/unnamed-chunk-9-1.png" width="864" style="display: block; margin: auto;" /></p>
 <p>Now let's repeat the same thing for the maximum number of each draw.</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="numerical-and-graphical-summaries.html#cb34-1" aria-hidden="true" tabindex="-1"></a>max_counts <span class="ot">&lt;-</span> lottomax_wide <span class="sc">%&gt;%</span></span>
 <span id="cb34-2"><a href="numerical-and-graphical-summaries.html#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(num7) <span class="sc">%&gt;%</span></span>
@@ -311,7 +311,7 @@ from 1 to 50 are appearing on the x-axis.</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="numerical-and-graphical-summaries.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(max_counts, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(num7), <span class="at">y=</span>n))<span class="sc">+</span></span>
 <span id="cb36-2"><a href="numerical-and-graphical-summaries.html#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
 <span id="cb36-3"><a href="numerical-and-graphical-summaries.html#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Maximum number&quot;</span>, <span class="at">y=</span><span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
-<p><img src="03-summaries_files/figure-html/unnamed-chunk-11-1.png" width="2700" style="display: block; margin: auto;" /></p>
+<p><img src="03-summaries_files/figure-html/unnamed-chunk-11-1.png" width="864" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="numerical-and-graphical-summaries.html#cb37-1" aria-hidden="true" tabindex="-1"></a>max_counts_complete <span class="ot">&lt;-</span> max_counts <span class="sc">%&gt;%</span></span>
 <span id="cb37-2"><a href="numerical-and-graphical-summaries.html#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">complete</span>(</span>
 <span id="cb37-3"><a href="numerical-and-graphical-summaries.html#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">num7 =</span> <span class="fu">full_seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>, <span class="at">period=</span><span class="dv">1</span>),</span>
@@ -321,7 +321,7 @@ from 1 to 50 are appearing on the x-axis.</p>
 <span id="cb38-2"><a href="numerical-and-graphical-summaries.html#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
 <span id="cb38-3"><a href="numerical-and-graphical-summaries.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">breaks=</span><span class="fu">factor</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">50</span>, <span class="dv">7</span>)))<span class="sc">+</span></span>
 <span id="cb38-4"><a href="numerical-and-graphical-summaries.html#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Maximum number&quot;</span>, <span class="at">y=</span><span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
-<p><img src="03-summaries_files/figure-html/unnamed-chunk-13-1.png" width="2700" style="display: block; margin: auto;" /></p>
+<p><img src="03-summaries_files/figure-html/unnamed-chunk-13-1.png" width="864" style="display: block; margin: auto;" /></p>
 </div>
 <div id="most-frequent-minimum-and-maximum---by-year" class="section level3" number="3.4.2">
 <h3><span class="header-section-number">3.4.2</span> Most frequent minimum and maximum - by year</h3>
