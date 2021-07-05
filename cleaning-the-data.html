@@ -24,7 +24,7 @@
 <meta name="author" content="Adam Shen" />
 
 
-<meta name="date" content="2021-07-03" />
+<meta name="date" content="2021-07-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="obtaining-the-data.html"/>
-<link rel="next" href="visualisation.html"/>
+<link rel="next" href="numerical-and-graphical-summaries.html"/>
 <script src="libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -89,35 +89,30 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
 code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
 code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
 code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </style>
 
 
@@ -158,11 +153,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.2" data-path="cleaning-the-data.html"><a href="cleaning-the-data.html#long-version"><i class="fa fa-check"></i><b>2.3.2</b> Long version</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="visualisation.html"><a href="visualisation.html"><i class="fa fa-check"></i><b>3</b> Visualisation</a>
+<li class="chapter" data-level="3" data-path="numerical-and-graphical-summaries.html"><a href="numerical-and-graphical-summaries.html"><i class="fa fa-check"></i><b>3</b> Numerical and graphical summaries</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="visualisation.html"><a href="visualisation.html#packages-2"><i class="fa fa-check"></i><b>3.1</b> Packages</a></li>
-<li class="chapter" data-level="3.2" data-path="visualisation.html"><a href="visualisation.html#load-the-data-1"><i class="fa fa-check"></i><b>3.2</b> Load the data</a></li>
-<li class="chapter" data-level="3.3" data-path="visualisation.html"><a href="visualisation.html#visualise-the-data"><i class="fa fa-check"></i><b>3.3</b> Visualise the data</a></li>
+<li class="chapter" data-level="3.1" data-path="numerical-and-graphical-summaries.html"><a href="numerical-and-graphical-summaries.html#packages-2"><i class="fa fa-check"></i><b>3.1</b> Packages</a></li>
+<li class="chapter" data-level="3.2" data-path="numerical-and-graphical-summaries.html"><a href="numerical-and-graphical-summaries.html#load-the-data-1"><i class="fa fa-check"></i><b>3.2</b> Load the data</a></li>
+<li class="chapter" data-level="3.3" data-path="numerical-and-graphical-summaries.html"><a href="numerical-and-graphical-summaries.html#plan"><i class="fa fa-check"></i><b>3.3</b> Plan</a></li>
+<li class="chapter" data-level="3.4" data-path="numerical-and-graphical-summaries.html"><a href="numerical-and-graphical-summaries.html#wide-data"><i class="fa fa-check"></i><b>3.4</b> Wide data</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="numerical-and-graphical-summaries.html"><a href="numerical-and-graphical-summaries.html#most-frequent-minimums-and-maximums---overall"><i class="fa fa-check"></i><b>3.4.1</b> Most frequent minimums and maximums - overall</a></li>
+<li class="chapter" data-level="3.4.2" data-path="numerical-and-graphical-summaries.html"><a href="numerical-and-graphical-summaries.html#most-frequent-minimum-and-maximum---by-year"><i class="fa fa-check"></i><b>3.4.2</b> Most frequent minimum and maximum - by year</a></li>
+<li class="chapter" data-level="3.4.3" data-path="numerical-and-graphical-summaries.html"><a href="numerical-and-graphical-summaries.html#which-numbers-have-never-been-in-the-minimummaximums-in-the-past-two-years"><i class="fa fa-check"></i><b>3.4.3</b> Which numbers have NEVER been in the minimum/maximums in the past two years?</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -216,12 +217,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.3</span> Clean the data</h2>
 <p>To do:</p>
 <ul>
-<li><code>date</code>: remove the non-space characters and the “With Max Millions!” phrase</li>
+<li><code>date</code>: remove the non-space characters and the "With Max Millions!" phrase</li>
 <li>Need to filter to only include dates after May 14, 2019 (inclusive) since LottoMax
 was changed to now have 50 possible numbers instead of 49</li>
 <li><code>result</code>: remove the non-space characters and reformat this column so that the numbers
 are easy to access and manipulate</li>
-<li>Remember that the last number is a “bonus” number</li>
+<li>Remember that the last number is a "bonus" number</li>
 <li>Preferable to sort data too</li>
 </ul>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="cleaning-the-data.html#cb15-1" aria-hidden="true" tabindex="-1"></a>lottomax_clean <span class="ot">&lt;-</span> lottomax <span class="sc">%&gt;%</span></span>
@@ -259,7 +260,7 @@ are easy to access and manipulate</li>
 ## # ... with 211 more rows</code></pre>
 <p>A wide and long version of the data set will likely be useful.</p>
 <ul>
-<li>Wide version for analysis of “number positions”</li>
+<li>Wide version for analysis of "number positions"</li>
 <li>Long version for regular numerical summaries</li>
 </ul>
 <div id="wide-version" class="section level3" number="2.3.1">
@@ -323,7 +324,7 @@ are easy to access and manipulate</li>
         </div>
       </div>
 <a href="obtaining-the-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="visualisation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="numerical-and-graphical-summaries.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
