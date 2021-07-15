@@ -60,9 +60,8 @@ head(min_counts)
 
 The drawn numbers should be treated as factors when plotting since these are discrete values. Note
 that they are converted to factor when plotting, but we are not modifying the supplied data. If 
-the drawn numbers were instead treated as continuous values, the axis would start at zero which would
-not only look "off", but is not entirely useful since the numbers that are being drawn are between 1
-and 50 (inclusive).
+the drawn numbers were instead treated as continuous values, the axis would start at zero which just
+look "off".
 
 The bar graph will make use of `geom_col` rather than `geom_bar` since we have the counts already.
 `geom_bar` would be used when we need to obtain counts from the data before making the bars.
@@ -94,7 +93,7 @@ ggplot(min_counts_complete, aes(x=factor(num1), y=n))+
   labs(x="Minimum number", y="Count")
 ```
 
-Now reusing the same graph as above, let's reduce some vertical gridlines.
+Now reusing the same graph as above, let's reduce the number of vertical gridlines.
 
 ```{r}
 ggplot(min_counts_complete, aes(x=factor(num1), y=n))+
@@ -103,7 +102,11 @@ ggplot(min_counts_complete, aes(x=factor(num1), y=n))+
   labs(x="Minimum number", y="Count")
 ```
 
-Now let's repeat the same thing for the maximum number of each draw.
+Realistically, the largest possible minimum number that could occur would be 44, resulting
+in a draw of seven consecutive numbers (44 to 50). This means that we could actually shorten the
+x-axis to only go up to 44.
+
+Now let's repeat the same visulisation process for the maximum number of each draw.
 
 ```{r}
 max_counts <- lottomax_wide %>%
@@ -134,8 +137,106 @@ ggplot(max_counts_complete, aes(x=factor(num7), y=n))+
   labs(x="Maximum number", y="Count")
 ```
 
+Similar to the previous discussion, the smallest possible maximum number that could occur would be
+7, resulting in a draw of seven consecutive numbers (1 to 7). This means that the x-axis could be
+shorted to begin at 7.
+
+
+### Which numbers have NEVER been in the minimum/maximums?
+
+(Keeping in mind that we have data for roughly half of 2019, the full data for 2020, and roughly
+half of 2021.)
+
+Using the "completed" data, we can obtain the numbers which have never been the minimum/maximum by
+filtering for numbers with a count of zero.
+
+```{r}
+never_min <- min_counts_complete %>%
+  filter(n==0) %>%
+  pull(num1)
+
+never_min
+```
+
+It is unsurprising that 44 has never been the minimum, since if 44 ever was the minimum, the seven
+winning numbers would be the consecutive numbers between 44 and 50.
+
+```{r}
+never_max <- max_counts_complete %>%
+  filter(n==0) %>%
+  pull(num7)
+
+never_max
+```
+
+From these results, it looks like we should pick at least one number between 1 and 15 (and or even
+between 17 and 23), and at least one number between 30 and 50!
+
 
 ### Most frequent minimum and maximum - by year
 
+```{r}
+min_by_year <- lottomax_wide %>%
+  group_by(year, num1) %>%
+  summarise(freq=n(), .groups="drop") %>%
+  group_by(year) %>%
+  slice_max(order_by=freq, n=3) %>%
+  ungroup()
 
-### Which numbers have NEVER been in the minimum/maximums in the past two years?
+min_by_year
+```
+
+```{r}
+ggplot(min_by_year, aes(x=factor(num1), y=freq))+
+  geom_col()+
+  facet_wrap(~year, scales="free_x")+
+  labs(x="Minimum number", y="Count")
+```
+
+The x-axis of this plot is ordered by the minimum number drawn and not by the counts. But we
+*can* order by counts if we want to. We will make use of the functions `reorder_within` and
+`scale_x_reordered` from the `tidytext` package.
+
+```{r}
+min_by_year %>%
+  mutate(num1_reordered = tidytext::reorder_within(num1, by=desc(freq), within=year)) %>%
+  ggplot(aes(x=num1_reordered, y=freq))+
+  geom_col()+
+  tidytext::scale_x_reordered()+
+  facet_wrap(~year, scales="free_x")+
+  labs(x="Minimum number", y="Count")
+```
+
+The above can be repeated using the maximum number.
+
+```{r}
+max_by_year <- lottomax_wide %>%
+  group_by(year, num7) %>%
+  summarise(freq=n(), .groups="drop") %>%
+  group_by(year) %>%
+  slice_max(order_by=freq, n=3) %>%
+  ungroup()
+
+max_by_year
+```
+
+```{r}
+ggplot(max_by_year, aes(x=factor(num7), y=freq))+
+  geom_col()+
+  facet_wrap(~year, scales="free_x")+
+  labs(x="Maximum number", y="Count")
+```
+
+```{r}
+max_by_year %>%
+  mutate(num7_reordered = tidytext::reorder_within(num7, by=desc(freq), within=year)) %>%
+  ggplot(aes(x=num7_reordered, y=freq))+
+  geom_col()+
+  tidytext::scale_x_reordered()+
+  facet_wrap(~year, scales="free_x")+
+  labs(x="Maximum number", y="Count")
+```
+
+
+### Summary statistics for minimum and maximum
+
