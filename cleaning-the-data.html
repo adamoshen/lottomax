@@ -24,7 +24,7 @@
 <meta name="author" content="Adam Shen" />
 
 
-<meta name="date" content="2021-07-04" />
+<meta name="date" content="2021-07-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,8 +161,9 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="chapter" data-level="3.4" data-path="numerical-and-graphical-summaries.html"><a href="numerical-and-graphical-summaries.html#wide-data"><i class="fa fa-check"></i><b>3.4</b> Wide data</a>
 <ul>
 <li class="chapter" data-level="3.4.1" data-path="numerical-and-graphical-summaries.html"><a href="numerical-and-graphical-summaries.html#most-frequent-minimums-and-maximums---overall"><i class="fa fa-check"></i><b>3.4.1</b> Most frequent minimums and maximums - overall</a></li>
-<li class="chapter" data-level="3.4.2" data-path="numerical-and-graphical-summaries.html"><a href="numerical-and-graphical-summaries.html#most-frequent-minimum-and-maximum---by-year"><i class="fa fa-check"></i><b>3.4.2</b> Most frequent minimum and maximum - by year</a></li>
-<li class="chapter" data-level="3.4.3" data-path="numerical-and-graphical-summaries.html"><a href="numerical-and-graphical-summaries.html#which-numbers-have-never-been-in-the-minimummaximums-in-the-past-two-years"><i class="fa fa-check"></i><b>3.4.3</b> Which numbers have NEVER been in the minimum/maximums in the past two years?</a></li>
+<li class="chapter" data-level="3.4.2" data-path="numerical-and-graphical-summaries.html"><a href="numerical-and-graphical-summaries.html#which-numbers-have-never-been-in-the-minimummaximums"><i class="fa fa-check"></i><b>3.4.2</b> Which numbers have NEVER been in the minimum/maximums?</a></li>
+<li class="chapter" data-level="3.4.3" data-path="numerical-and-graphical-summaries.html"><a href="numerical-and-graphical-summaries.html#most-frequent-minimum-and-maximum---by-year"><i class="fa fa-check"></i><b>3.4.3</b> Most frequent minimum and maximum - by year</a></li>
+<li class="chapter" data-level="3.4.4" data-path="numerical-and-graphical-summaries.html"><a href="numerical-and-graphical-summaries.html#summary-statistics-for-minimum-and-maximum"><i class="fa fa-check"></i><b>3.4.4</b> Summary statistics for minimum and maximum</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -194,57 +195,67 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="cleaning-the-data.html#cb9-1" aria-hidden="true" tabindex="-1"></a>lottomax <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;./data/lottomax.RDS&quot;</span>)</span>
 <span id="cb9-2"><a href="cleaning-the-data.html#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="cleaning-the-data.html#cb9-3" aria-hidden="true" tabindex="-1"></a>lottomax</span></code></pre></div>
-<pre><code>## # A tibble: 240 x 3
-##    year  date                                result                             
-##    &lt;chr&gt; &lt;chr&gt;                               &lt;chr&gt;                              
-##  1 2019  &quot;December 31 2019\r\n\t\t\t\t\t\t\~ &quot;3\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t~
-##  2 2019  &quot;December 27 2019\r\n\t\t\t\t\t\t\~ &quot;13\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\~
-##  3 2019  &quot;December 24 2019\r\n\t\t\t\t\t\t\~ &quot;1\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t~
-##  4 2019  &quot;December 20 2019\r\n\t\t\t\t\t\t\~ &quot;14\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\~
-##  5 2019  &quot;December 17 2019&quot;                  &quot;19\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\~
-##  6 2019  &quot;December 13 2019&quot;                  &quot;2\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t~
-##  7 2019  &quot;December 10 2019&quot;                  &quot;7\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t~
-##  8 2019  &quot;December 6 2019&quot;                   &quot;9\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t~
-##  9 2019  &quot;December 3 2019&quot;                   &quot;2\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t~
-## 10 2019  &quot;November 29 2019&quot;                  &quot;3\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t~
-## # ... with 230 more rows</code></pre>
+<pre><code>## # A tibble: 249 x 4
+##    year  Date                  `Draw Results`              Jackpot              
+##    &lt;chr&gt; &lt;chr&gt;                 &lt;chr&gt;                       &lt;chr&gt;                
+##  1 2019  &quot;December 31 2019\r\~ &quot;3\r\n\t\t\t\t\t\t\r\n\t\t~ &quot;$65,000,000&quot;        
+##  2 2019  &quot;December 27 2019\r\~ &quot;13\r\n\t\t\t\t\t\t\r\n\t\~ &quot;$60,000,000&quot;        
+##  3 2019  &quot;December 24 2019\r\~ &quot;1\r\n\t\t\t\t\t\t\r\n\t\t~ &quot;$55,000,000&quot;        
+##  4 2019  &quot;December 20 2019\r\~ &quot;14\r\n\t\t\t\t\t\t\r\n\t\~ &quot;$50,000,000&quot;        
+##  5 2019  &quot;Next Lotto Max Jack~ &quot;Next Lotto Max Jackpot\r\~ &quot;Next Lotto Max Jack~
+##  6 2019  &quot;December 17 2019&quot;    &quot;19\r\n\t\t\t\t\t\t\r\n\t\~ &quot;$40,000,000&quot;        
+##  7 2019  &quot;December 13 2019&quot;    &quot;2\r\n\t\t\t\t\t\t\r\n\t\t~ &quot;$31,000,000&quot;        
+##  8 2019  &quot;December 10 2019&quot;    &quot;7\r\n\t\t\t\t\t\t\r\n\t\t~ &quot;$26,000,000&quot;        
+##  9 2019  &quot;December 6 2019&quot;     &quot;9\r\n\t\t\t\t\t\t\r\n\t\t~ &quot;$21,000,000&quot;        
+## 10 2019  &quot;December 3 2019&quot;     &quot;2\r\n\t\t\t\t\t\t\r\n\t\t~ &quot;$16,000,000&quot;        
+## # ... with 239 more rows</code></pre>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="cleaning-the-data.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.character</span>(lottomax[<span class="dv">1</span>,<span class="dv">2</span>])</span></code></pre></div>
-<pre><code>## [1] &quot;December 31 2019\r\n\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\tWith Max Millions!&quot;</code></pre>
+<pre><code>## [1] &quot;December 31 2019\r\n\t\t\t\t\t\r\n\t\t\t\t\t\tWith Max Millions!&quot;</code></pre>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="cleaning-the-data.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.character</span>(lottomax[<span class="dv">1</span>,<span class="dv">3</span>])</span></code></pre></div>
-<pre><code>## [1] &quot;3\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t4\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t11\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t19\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t30\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t39\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t40\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t25&quot;</code></pre>
+<pre><code>## [1] &quot;3\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t4\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t11\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t19\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t30\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t39\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t40\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t25&quot;</code></pre>
 </div>
 <div id="clean-the-data" class="section level2" number="2.3">
 <h2><span class="header-section-number">2.3</span> Clean the data</h2>
 <p>To do:</p>
 <ul>
-<li><code>date</code>: remove the non-space characters and the "With Max Millions!" phrase</li>
-<li>Need to filter to only include dates after May 14, 2019 (inclusive) since LottoMax
-was changed to now have 50 possible numbers instead of 49</li>
-<li><code>result</code>: remove the non-space characters and reformat this column so that the numbers
-are easy to access and manipulate</li>
-<li>Remember that the last number is a "bonus" number</li>
-<li>Preferable to sort data too</li>
+<li><p>Rename (shorten) <code>Date</code> and <code>Draw Results</code> columns using <code>tidyselect::contains</code> since column
+names were recently updated to something similar but not the same. I.e. don't use a fixed old_name
+in <code>new_name = old_name</code> convention</p></li>
+<li><p>Remove <code>Jackpot</code> column</p></li>
+<li><p>Remove rows mentioning "Next Lotto Max Jackpot ...". This needs to be done before parsing dates</p></li>
+<li><p><code>date</code>: remove the non-space characters and the "With Max Millions!" phrase</p></li>
+<li><p>Need to filter to only include dates after May 14, 2019 (inclusive) since LottoMax
+was changed to now have 50 possible numbers instead of 49</p></li>
+<li><p><code>result</code>: remove the non-space characters and reformat this column so that the numbers
+are easy to access and manipulate</p></li>
+<li><p>Remember that the last number is a "bonus" number</p></li>
+<li><p>Preferable to sort data too</p></li>
 </ul>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="cleaning-the-data.html#cb15-1" aria-hidden="true" tabindex="-1"></a>lottomax_clean <span class="ot">&lt;-</span> lottomax <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="cleaning-the-data.html#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Convert `year` to factor</span></span>
-<span id="cb15-3"><a href="cleaning-the-data.html#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(year, as.factor)) <span class="sc">%&gt;%</span></span>
-<span id="cb15-4"><a href="cleaning-the-data.html#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Repair `date` to be an actual date</span></span>
-<span id="cb15-5"><a href="cleaning-the-data.html#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb15-6"><a href="cleaning-the-data.html#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove excessive whitespace from `date` column</span></span>
-<span id="cb15-7"><a href="cleaning-the-data.html#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">str_squish</span>(date),</span>
-<span id="cb15-8"><a href="cleaning-the-data.html#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove extra text</span></span>
-<span id="cb15-9"><a href="cleaning-the-data.html#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">str_remove</span>(date, <span class="at">pattern=</span><span class="st">&quot;With Max Millions!&quot;</span>),</span>
-<span id="cb15-10"><a href="cleaning-the-data.html#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Parse date text in mm/dd/yyyy format</span></span>
-<span id="cb15-11"><a href="cleaning-the-data.html#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">mdy</span>(date)</span>
-<span id="cb15-12"><a href="cleaning-the-data.html#cb15-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb15-13"><a href="cleaning-the-data.html#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Keep only rows that were drawn after May 14, 2019 (inclusive)</span></span>
-<span id="cb15-14"><a href="cleaning-the-data.html#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date <span class="sc">&gt;=</span> <span class="fu">mdy</span>(<span class="st">&quot;May 14 2019&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb15-15"><a href="cleaning-the-data.html#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Remove excessive whitespace from `result` column</span></span>
-<span id="cb15-16"><a href="cleaning-the-data.html#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">result =</span> <span class="fu">str_squish</span>(result)) <span class="sc">%&gt;%</span></span>
-<span id="cb15-17"><a href="cleaning-the-data.html#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date)</span>
-<span id="cb15-18"><a href="cleaning-the-data.html#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-19"><a href="cleaning-the-data.html#cb15-19" aria-hidden="true" tabindex="-1"></a>lottomax_clean</span></code></pre></div>
-<pre><code>## # A tibble: 221 x 3
+<span id="cb15-2"><a href="cleaning-the-data.html#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">&quot;date&quot;</span> <span class="ot">=</span> <span class="fu">contains</span>(<span class="st">&quot;date&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="cleaning-the-data.html#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">&quot;result&quot;</span> <span class="ot">=</span> <span class="fu">contains</span>(<span class="st">&quot;results&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="cleaning-the-data.html#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Convert `year` to factor</span></span>
+<span id="cb15-5"><a href="cleaning-the-data.html#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(year, as.factor)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-6"><a href="cleaning-the-data.html#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Keep rows that *don&#39;t* contain &quot;Next Lotto Max Jackpot&quot;</span></span>
+<span id="cb15-7"><a href="cleaning-the-data.html#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(date, <span class="at">pattern=</span><span class="st">&quot;Next&quot;</span>, <span class="at">negate=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-8"><a href="cleaning-the-data.html#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Repair `date` to be an actual date</span></span>
+<span id="cb15-9"><a href="cleaning-the-data.html#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb15-10"><a href="cleaning-the-data.html#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove excessive whitespace from `date` column</span></span>
+<span id="cb15-11"><a href="cleaning-the-data.html#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">str_squish</span>(date),</span>
+<span id="cb15-12"><a href="cleaning-the-data.html#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove extra text</span></span>
+<span id="cb15-13"><a href="cleaning-the-data.html#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">str_remove</span>(date, <span class="at">pattern=</span><span class="st">&quot;With Max Millions!&quot;</span>),</span>
+<span id="cb15-14"><a href="cleaning-the-data.html#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Parse date text in mm/dd/yyyy format</span></span>
+<span id="cb15-15"><a href="cleaning-the-data.html#cb15-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">mdy</span>(date)</span>
+<span id="cb15-16"><a href="cleaning-the-data.html#cb15-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb15-17"><a href="cleaning-the-data.html#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Keep only rows that were drawn after May 14, 2019 (inclusive)</span></span>
+<span id="cb15-18"><a href="cleaning-the-data.html#cb15-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date <span class="sc">&gt;=</span> <span class="fu">mdy</span>(<span class="st">&quot;May 14 2019&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-19"><a href="cleaning-the-data.html#cb15-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Remove excessive whitespace from `result` column</span></span>
+<span id="cb15-20"><a href="cleaning-the-data.html#cb15-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">result =</span> <span class="fu">str_squish</span>(result)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-21"><a href="cleaning-the-data.html#cb15-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, date, result) <span class="sc">%&gt;%</span></span>
+<span id="cb15-22"><a href="cleaning-the-data.html#cb15-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date)</span>
+<span id="cb15-23"><a href="cleaning-the-data.html#cb15-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-24"><a href="cleaning-the-data.html#cb15-24" aria-hidden="true" tabindex="-1"></a>lottomax_clean</span></code></pre></div>
+<pre><code>## # A tibble: 227 x 3
 ##    year  date       result                 
 ##    &lt;fct&gt; &lt;date&gt;     &lt;chr&gt;                  
 ##  1 2019  2019-05-14 9 24 27 33 40 44 48 41 
@@ -257,7 +268,7 @@ are easy to access and manipulate</li>
 ##  8 2019  2019-06-07 4 8 13 23 25 33 39 17  
 ##  9 2019  2019-06-11 18 23 28 32 34 44 50 29
 ## 10 2019  2019-06-14 4 11 20 22 37 44 49 13 
-## # ... with 211 more rows</code></pre>
+## # ... with 217 more rows</code></pre>
 <p>A wide and long version of the data set will likely be useful.</p>
 <ul>
 <li>Wide version for analysis of "number positions"</li>
@@ -273,7 +284,7 @@ are easy to access and manipulate</li>
 <span id="cb17-6"><a href="cleaning-the-data.html#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(num1<span class="sc">:</span>num7, bonus), parse_integer)) </span>
 <span id="cb17-7"><a href="cleaning-the-data.html#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-8"><a href="cleaning-the-data.html#cb17-8" aria-hidden="true" tabindex="-1"></a>lottomax_wide</span></code></pre></div>
-<pre><code>## # A tibble: 221 x 11
+<pre><code>## # A tibble: 227 x 11
 ##    year  date       result        num1  num2  num3  num4  num5  num6  num7 bonus
 ##    &lt;fct&gt; &lt;date&gt;     &lt;chr&gt;        &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
 ##  1 2019  2019-05-14 9 24 27 33 ~     9    24    27    33    40    44    48    41
@@ -286,7 +297,7 @@ are easy to access and manipulate</li>
 ##  8 2019  2019-06-07 4 8 13 23 2~     4     8    13    23    25    33    39    17
 ##  9 2019  2019-06-11 18 23 28 32~    18    23    28    32    34    44    50    29
 ## 10 2019  2019-06-14 4 11 20 22 ~     4    11    20    22    37    44    49    13
-## # ... with 211 more rows</code></pre>
+## # ... with 217 more rows</code></pre>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="cleaning-the-data.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(lottomax_wide, <span class="st">&quot;./data/lottomax_wide.RDS&quot;</span>, <span class="at">version=</span><span class="dv">2</span>)</span></code></pre></div>
 </div>
 <div id="long-version" class="section level3" number="2.3.2">
@@ -299,7 +310,7 @@ are easy to access and manipulate</li>
 <span id="cb20-6"><a href="cleaning-the-data.html#cb20-6" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb20-7"><a href="cleaning-the-data.html#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-8"><a href="cleaning-the-data.html#cb20-8" aria-hidden="true" tabindex="-1"></a>lottomax_long</span></code></pre></div>
-<pre><code>## # A tibble: 1,768 x 5
+<pre><code>## # A tibble: 1,816 x 5
 ##    year  date       result                 role  number
 ##    &lt;fct&gt; &lt;date&gt;     &lt;chr&gt;                  &lt;chr&gt;  &lt;int&gt;
 ##  1 2019  2019-05-14 9 24 27 33 40 44 48 41 num1       9
@@ -312,7 +323,7 @@ are easy to access and manipulate</li>
 ##  8 2019  2019-05-14 9 24 27 33 40 44 48 41 bonus     41
 ##  9 2019  2019-05-17 4 21 23 39 40 42 50 17 num1       4
 ## 10 2019  2019-05-17 4 21 23 39 40 42 50 17 num2      21
-## # ... with 1,758 more rows</code></pre>
+## # ... with 1,806 more rows</code></pre>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="cleaning-the-data.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(lottomax_long, <span class="st">&quot;./data/lottomax_long.RDS&quot;</span>, <span class="at">version=</span><span class="dv">2</span>)</span></code></pre></div>
 
 </div>

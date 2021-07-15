@@ -16,5 +16,6 @@ load-the-data-1
 plan
 wide-data
 most-frequent-minimums-and-maximums---overall
+which-numbers-have-never-been-in-the-minimummaximums
 most-frequent-minimum-and-maximum---by-year
-which-numbers-have-never-been-in-the-minimummaximums-in-the-past-two-years
+summary-statistics-for-minimum-and-maximum
