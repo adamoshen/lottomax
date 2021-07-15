@@ -47,11 +47,6 @@ input_years <- 2019:2021 %>%
 lottomax <- map_dfr(input_years, getnums, .id="year")
 ```
 
-Names are a bit long... Rename them.
-
 ```{r}
-lottomax <- lottomax %>%
-  rename("date" = "Result Date:", "result" = "Draw Result:")
-
 saveRDS(lottomax, "./data/lottomax.RDS", version=2)
 ```
