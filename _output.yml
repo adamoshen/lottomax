@@ -13,6 +13,8 @@ bookdown::gitbook:
     search: no
     info: no
     sharing: no
-  highlight: haddock
-  css: gitbook.css
+  highlight: null
+  css: [css/gitbook.css, css/adam-light.css]
+  includes:
+    in_header: utils/header.html
   md_extensions: -smart
