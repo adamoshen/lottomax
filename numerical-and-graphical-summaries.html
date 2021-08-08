@@ -24,7 +24,7 @@
 <meta name="author" content="Adam Shen" />
 
 
-<meta name="date" content="2021-07-14" />
+<meta name="date" content="2021-08-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,70 +53,13 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="utils/prismr.js"></script>
 
 
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; } /* Alert */
-code span.an { color: #008000; } /* Annotation */
-code span.at { } /* Attribute */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #0000ff; } /* ControlFlow */
-code span.ch { color: #008080; } /* Char */
-code span.cn { } /* Constant */
-code span.co { color: #008000; } /* Comment */
-code span.cv { color: #008000; } /* CommentVar */
-code span.do { color: #008000; } /* Documentation */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.im { } /* Import */
-code span.in { color: #008000; } /* Information */
-code span.kw { color: #0000ff; } /* Keyword */
-code span.op { } /* Operator */
-code span.ot { color: #ff4000; } /* Other */
-code span.pp { color: #ff4000; } /* Preprocessor */
-code span.sc { color: #008080; } /* SpecialChar */
-code span.ss { color: #008080; } /* SpecialString */
-code span.st { color: #008080; } /* String */
-code span.va { } /* Variable */
-code span.vs { color: #008080; } /* VerbatimString */
-code span.wa { color: #008000; font-weight: bold; } /* Warning */
-</style>
 
 
-<link rel="stylesheet" href="gitbook.css" type="text/css" />
+<link rel="stylesheet" href="css/gitbook.css" type="text/css" />
+<link rel="stylesheet" href="css/adam-light.css" type="text/css" />
 </head>
 
 <body>
@@ -187,16 +130,16 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h1><span class="header-section-number">3</span> Numerical and graphical summaries</h1>
 <div id="packages-2" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Packages</h2>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="numerical-and-graphical-summaries.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb23-2"><a href="numerical-and-graphical-summaries.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb23-3"><a href="numerical-and-graphical-summaries.html#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span></code></pre></div>
+<pre class="r language-r"><code>library(tidyverse)
+library(lubridate)
+theme_set(theme_bw())</code></pre>
 </div>
 <div id="load-the-data-1" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Load the data</h2>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="numerical-and-graphical-summaries.html#cb24-1" aria-hidden="true" tabindex="-1"></a>lottomax_wide <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;./data/lottomax_wide.RDS&quot;</span>)</span>
-<span id="cb24-2"><a href="numerical-and-graphical-summaries.html#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="numerical-and-graphical-summaries.html#cb24-3" aria-hidden="true" tabindex="-1"></a>lottomax_wide</span></code></pre></div>
-<pre><code>## # A tibble: 227 x 11
+<pre class="r language-r"><code>lottomax_wide &lt;- readRDS(&quot;./data/lottomax_wide.RDS&quot;)
+
+lottomax_wide</code></pre>
+<pre class="language-r"><code>## # A tibble: 227 x 11
 ##    year  date       result        num1  num2  num3  num4  num5  num6  num7 bonus
 ##    &lt;fct&gt; &lt;date&gt;     &lt;chr&gt;        &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
 ##  1 2019  2019-05-14 9 24 27 33 ~     9    24    27    33    40    44    48    41
@@ -210,10 +153,10 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 ##  9 2019  2019-06-11 18 23 28 32~    18    23    28    32    34    44    50    29
 ## 10 2019  2019-06-14 4 11 20 22 ~     4    11    20    22    37    44    49    13
 ## # ... with 217 more rows</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="numerical-and-graphical-summaries.html#cb26-1" aria-hidden="true" tabindex="-1"></a>lottomax_long <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;./data/lottomax_long.RDS&quot;</span>)</span>
-<span id="cb26-2"><a href="numerical-and-graphical-summaries.html#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="numerical-and-graphical-summaries.html#cb26-3" aria-hidden="true" tabindex="-1"></a>lottomax_long</span></code></pre></div>
-<pre><code>## # A tibble: 1,816 x 5
+<pre class="r language-r"><code>lottomax_long &lt;- readRDS(&quot;./data/lottomax_long.RDS&quot;)
+
+lottomax_long</code></pre>
+<pre class="language-r"><code>## # A tibble: 1,816 x 5
 ##    year  date       result                 role  number
 ##    &lt;fct&gt; &lt;date&gt;     &lt;chr&gt;                  &lt;chr&gt;  &lt;int&gt;
 ##  1 2019  2019-05-14 9 24 27 33 40 44 48 41 num1       9
@@ -249,12 +192,12 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h2><span class="header-section-number">3.4</span> Wide data</h2>
 <div id="most-frequent-minimums-and-maximums---overall" class="section level3" number="3.4.1">
 <h3><span class="header-section-number">3.4.1</span> Most frequent minimums and maximums - overall</h3>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="numerical-and-graphical-summaries.html#cb28-1" aria-hidden="true" tabindex="-1"></a>min_counts <span class="ot">&lt;-</span> lottomax_wide <span class="sc">%&gt;%</span></span>
-<span id="cb28-2"><a href="numerical-and-graphical-summaries.html#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(num1) <span class="sc">%&gt;%</span></span>
-<span id="cb28-3"><a href="numerical-and-graphical-summaries.html#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
-<span id="cb28-4"><a href="numerical-and-graphical-summaries.html#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-5"><a href="numerical-and-graphical-summaries.html#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(min_counts)</span></code></pre></div>
-<pre><code>## # A tibble: 6 x 2
+<pre class="r language-r"><code>min_counts &lt;- lottomax_wide %&gt;%
+  count(num1) %&gt;%
+  arrange(desc(n))
+
+head(min_counts)</code></pre>
+<pre class="language-r"><code>## # A tibble: 6 x 2
 ##    num1     n
 ##   &lt;int&gt; &lt;int&gt;
 ## 1     1    31
@@ -269,40 +212,40 @@ the drawn numbers were instead treated as continuous values, the axis would star
 look "off".</p>
 <p>The bar graph will make use of <code>geom_col</code> rather than <code>geom_bar</code> since we have the counts already.
 <code>geom_bar</code> would be used when we need to obtain counts from the data before making the bars.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="numerical-and-graphical-summaries.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(min_counts, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(num1), <span class="at">y=</span>n))<span class="sc">+</span></span>
-<span id="cb30-2"><a href="numerical-and-graphical-summaries.html#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
-<span id="cb30-3"><a href="numerical-and-graphical-summaries.html#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Minimum number&quot;</span>, <span class="at">y=</span><span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
+<pre class="r language-r"><code>ggplot(min_counts, aes(x=factor(num1), y=n))+
+  geom_col()+
+  labs(x=&quot;Minimum number&quot;, y=&quot;Count&quot;)</code></pre>
 <p><img src="03-summaries_files/figure-html/unnamed-chunk-6-1.png" width="864" style="display: block; margin: auto;" /></p>
 <p>Although it would be preferable to reduce some of the vertical gridlines, we should note that some
 numbers have actually never occurred as the minimum, i.e. the numbers appearing on the x-axis are not
 consecutive. If we wish to reduce some of the gridlines, we need to make sure that all numbers
 from 1 to 50 are appearing on the x-axis.</p>
 <p>We can fill in the unobserved numbers using the <code>complete</code> function found within the <code>tidyr</code> package.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="numerical-and-graphical-summaries.html#cb31-1" aria-hidden="true" tabindex="-1"></a>min_counts_complete <span class="ot">&lt;-</span> min_counts <span class="sc">%&gt;%</span></span>
-<span id="cb31-2"><a href="numerical-and-graphical-summaries.html#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">complete</span>(</span>
-<span id="cb31-3"><a href="numerical-and-graphical-summaries.html#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">num1 =</span> <span class="fu">full_seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>, <span class="at">period=</span><span class="dv">1</span>),</span>
-<span id="cb31-4"><a href="numerical-and-graphical-summaries.html#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="fu">list</span>(<span class="at">n =</span> <span class="dv">0</span>)</span>
-<span id="cb31-5"><a href="numerical-and-graphical-summaries.html#cb31-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="numerical-and-graphical-summaries.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(min_counts_complete, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(num1), <span class="at">y=</span>n))<span class="sc">+</span></span>
-<span id="cb32-2"><a href="numerical-and-graphical-summaries.html#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
-<span id="cb32-3"><a href="numerical-and-graphical-summaries.html#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Minimum number&quot;</span>, <span class="at">y=</span><span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
+<pre class="r language-r"><code>min_counts_complete &lt;- min_counts %&gt;%
+  complete(
+    num1 = full_seq(1:50, period=1),
+    fill = list(n = 0)
+  )</code></pre>
+<pre class="r language-r"><code>ggplot(min_counts_complete, aes(x=factor(num1), y=n))+
+  geom_col()+
+  labs(x=&quot;Minimum number&quot;, y=&quot;Count&quot;)</code></pre>
 <p><img src="03-summaries_files/figure-html/unnamed-chunk-8-1.png" width="864" style="display: block; margin: auto;" /></p>
 <p>Now reusing the same graph as above, let's reduce the number of vertical gridlines.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="numerical-and-graphical-summaries.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(min_counts_complete, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(num1), <span class="at">y=</span>n))<span class="sc">+</span></span>
-<span id="cb33-2"><a href="numerical-and-graphical-summaries.html#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
-<span id="cb33-3"><a href="numerical-and-graphical-summaries.html#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">breaks=</span><span class="fu">factor</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">50</span>, <span class="dv">7</span>)))<span class="sc">+</span></span>
-<span id="cb33-4"><a href="numerical-and-graphical-summaries.html#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Minimum number&quot;</span>, <span class="at">y=</span><span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
+<pre class="r language-r"><code>ggplot(min_counts_complete, aes(x=factor(num1), y=n))+
+  geom_col()+
+  scale_x_discrete(breaks=factor(seq(1, 50, 7)))+
+  labs(x=&quot;Minimum number&quot;, y=&quot;Count&quot;)</code></pre>
 <p><img src="03-summaries_files/figure-html/unnamed-chunk-9-1.png" width="864" style="display: block; margin: auto;" /></p>
 <p>Realistically, the largest possible minimum number that could occur would be 44, resulting
 in a draw of seven consecutive numbers (44 to 50). This means that we could actually shorten the
 x-axis to only go up to 44.</p>
 <p>Now let's repeat the same visulisation process for the maximum number of each draw.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="numerical-and-graphical-summaries.html#cb34-1" aria-hidden="true" tabindex="-1"></a>max_counts <span class="ot">&lt;-</span> lottomax_wide <span class="sc">%&gt;%</span></span>
-<span id="cb34-2"><a href="numerical-and-graphical-summaries.html#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(num7) <span class="sc">%&gt;%</span></span>
-<span id="cb34-3"><a href="numerical-and-graphical-summaries.html#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
-<span id="cb34-4"><a href="numerical-and-graphical-summaries.html#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-5"><a href="numerical-and-graphical-summaries.html#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(max_counts)</span></code></pre></div>
-<pre><code>## # A tibble: 6 x 2
+<pre class="r language-r"><code>max_counts &lt;- lottomax_wide %&gt;%
+  count(num7) %&gt;%
+  arrange(desc(n))
+
+head(max_counts)</code></pre>
+<pre class="language-r"><code>## # A tibble: 6 x 2
 ##    num7     n
 ##   &lt;int&gt; &lt;int&gt;
 ## 1    50    32
@@ -311,19 +254,19 @@ x-axis to only go up to 44.</p>
 ## 4    46    21
 ## 5    44    18
 ## 6    47    18</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="numerical-and-graphical-summaries.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(max_counts, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(num7), <span class="at">y=</span>n))<span class="sc">+</span></span>
-<span id="cb36-2"><a href="numerical-and-graphical-summaries.html#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
-<span id="cb36-3"><a href="numerical-and-graphical-summaries.html#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Maximum number&quot;</span>, <span class="at">y=</span><span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
+<pre class="r language-r"><code>ggplot(max_counts, aes(x=factor(num7), y=n))+
+  geom_col()+
+  labs(x=&quot;Maximum number&quot;, y=&quot;Count&quot;)</code></pre>
 <p><img src="03-summaries_files/figure-html/unnamed-chunk-11-1.png" width="864" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="numerical-and-graphical-summaries.html#cb37-1" aria-hidden="true" tabindex="-1"></a>max_counts_complete <span class="ot">&lt;-</span> max_counts <span class="sc">%&gt;%</span></span>
-<span id="cb37-2"><a href="numerical-and-graphical-summaries.html#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">complete</span>(</span>
-<span id="cb37-3"><a href="numerical-and-graphical-summaries.html#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">num7 =</span> <span class="fu">full_seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>, <span class="at">period=</span><span class="dv">1</span>),</span>
-<span id="cb37-4"><a href="numerical-and-graphical-summaries.html#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="fu">list</span>(<span class="at">n =</span> <span class="dv">0</span>)</span>
-<span id="cb37-5"><a href="numerical-and-graphical-summaries.html#cb37-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="numerical-and-graphical-summaries.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(max_counts_complete, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(num7), <span class="at">y=</span>n))<span class="sc">+</span></span>
-<span id="cb38-2"><a href="numerical-and-graphical-summaries.html#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
-<span id="cb38-3"><a href="numerical-and-graphical-summaries.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">breaks=</span><span class="fu">factor</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">50</span>, <span class="dv">7</span>)))<span class="sc">+</span></span>
-<span id="cb38-4"><a href="numerical-and-graphical-summaries.html#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Maximum number&quot;</span>, <span class="at">y=</span><span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
+<pre class="r language-r"><code>max_counts_complete &lt;- max_counts %&gt;%
+  complete(
+    num7 = full_seq(1:50, period=1),
+    fill = list(n = 0)
+  )</code></pre>
+<pre class="r language-r"><code>ggplot(max_counts_complete, aes(x=factor(num7), y=n))+
+  geom_col()+
+  scale_x_discrete(breaks=factor(seq(1, 50, 7)))+
+  labs(x=&quot;Maximum number&quot;, y=&quot;Count&quot;)</code></pre>
 <p><img src="03-summaries_files/figure-html/unnamed-chunk-13-1.png" width="864" style="display: block; margin: auto;" /></p>
 <p>Similar to the previous discussion, the smallest possible maximum number that could occur would be
 7, resulting in a draw of seven consecutive numbers (1 to 7). This means that the x-axis could be
@@ -335,34 +278,34 @@ shorted to begin at 7.</p>
 half of 2021.)</p>
 <p>Using the "completed" data, we can obtain the numbers which have never been the minimum/maximum by
 filtering for numbers with a count of zero.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="numerical-and-graphical-summaries.html#cb39-1" aria-hidden="true" tabindex="-1"></a>never_min <span class="ot">&lt;-</span> min_counts_complete <span class="sc">%&gt;%</span></span>
-<span id="cb39-2"><a href="numerical-and-graphical-summaries.html#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n<span class="sc">==</span><span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb39-3"><a href="numerical-and-graphical-summaries.html#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(num1)</span>
-<span id="cb39-4"><a href="numerical-and-graphical-summaries.html#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-5"><a href="numerical-and-graphical-summaries.html#cb39-5" aria-hidden="true" tabindex="-1"></a>never_min</span></code></pre></div>
-<pre><code>##  [1] 16 24 27 28 29 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50</code></pre>
+<pre class="r language-r"><code>never_min &lt;- min_counts_complete %&gt;%
+  filter(n==0) %&gt;%
+  pull(num1)
+
+never_min</code></pre>
+<pre class="language-r"><code>##  [1] 16 24 27 28 29 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50</code></pre>
 <p>It is unsurprising that 44 has never been the minimum, since if 44 ever was the minimum, the seven
 winning numbers would be the consecutive numbers between 44 and 50.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="numerical-and-graphical-summaries.html#cb41-1" aria-hidden="true" tabindex="-1"></a>never_max <span class="ot">&lt;-</span> max_counts_complete <span class="sc">%&gt;%</span></span>
-<span id="cb41-2"><a href="numerical-and-graphical-summaries.html#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n<span class="sc">==</span><span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb41-3"><a href="numerical-and-graphical-summaries.html#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(num7)</span>
-<span id="cb41-4"><a href="numerical-and-graphical-summaries.html#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-5"><a href="numerical-and-graphical-summaries.html#cb41-5" aria-hidden="true" tabindex="-1"></a>never_max</span></code></pre></div>
-<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 21 22 23 24 26 30</code></pre>
+<pre class="r language-r"><code>never_max &lt;- max_counts_complete %&gt;%
+  filter(n==0) %&gt;%
+  pull(num7)
+
+never_max</code></pre>
+<pre class="language-r"><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 21 22 23 24 26 30</code></pre>
 <p>From these results, it looks like we should pick at least one number between 1 and 15 (and or even
 between 17 and 23), and at least one number between 30 and 50!</p>
 </div>
 <div id="most-frequent-minimum-and-maximum---by-year" class="section level3" number="3.4.3">
 <h3><span class="header-section-number">3.4.3</span> Most frequent minimum and maximum - by year</h3>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="numerical-and-graphical-summaries.html#cb43-1" aria-hidden="true" tabindex="-1"></a>min_by_year <span class="ot">&lt;-</span> lottomax_wide <span class="sc">%&gt;%</span></span>
-<span id="cb43-2"><a href="numerical-and-graphical-summaries.html#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, num1) <span class="sc">%&gt;%</span></span>
-<span id="cb43-3"><a href="numerical-and-graphical-summaries.html#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">freq=</span><span class="fu">n</span>(), <span class="at">.groups=</span><span class="st">&quot;drop&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb43-4"><a href="numerical-and-graphical-summaries.html#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
-<span id="cb43-5"><a href="numerical-and-graphical-summaries.html#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by=</span>freq, <span class="at">n=</span><span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb43-6"><a href="numerical-and-graphical-summaries.html#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb43-7"><a href="numerical-and-graphical-summaries.html#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-8"><a href="numerical-and-graphical-summaries.html#cb43-8" aria-hidden="true" tabindex="-1"></a>min_by_year</span></code></pre></div>
-<pre><code>## # A tibble: 11 x 3
+<pre class="r language-r"><code>min_by_year &lt;- lottomax_wide %&gt;%
+  group_by(year, num1) %&gt;%
+  summarise(freq=n(), .groups=&quot;drop&quot;) %&gt;%
+  group_by(year) %&gt;%
+  slice_max(order_by=freq, n=3) %&gt;%
+  ungroup()
+
+min_by_year</code></pre>
+<pre class="language-r"><code>## # A tibble: 11 x 3
 ##    year   num1  freq
 ##    &lt;fct&gt; &lt;int&gt; &lt;int&gt;
 ##  1 2019      1    10
@@ -376,32 +319,32 @@ between 17 and 23), and at least one number between 30 and 50!</p>
 ##  9 2021      2     8
 ## 10 2021      5     5
 ## 11 2021      6     5</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="numerical-and-graphical-summaries.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(min_by_year, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(num1), <span class="at">y=</span>freq))<span class="sc">+</span></span>
-<span id="cb45-2"><a href="numerical-and-graphical-summaries.html#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
-<span id="cb45-3"><a href="numerical-and-graphical-summaries.html#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>year, <span class="at">scales=</span><span class="st">&quot;free_x&quot;</span>)<span class="sc">+</span></span>
-<span id="cb45-4"><a href="numerical-and-graphical-summaries.html#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Minimum number&quot;</span>, <span class="at">y=</span><span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
+<pre class="r language-r"><code>ggplot(min_by_year, aes(x=factor(num1), y=freq))+
+  geom_col()+
+  facet_wrap(~year, scales=&quot;free_x&quot;)+
+  labs(x=&quot;Minimum number&quot;, y=&quot;Count&quot;)</code></pre>
 <p><img src="03-summaries_files/figure-html/unnamed-chunk-17-1.png" width="864" style="display: block; margin: auto;" /></p>
 <p>The x-axis of this plot is ordered by the minimum number drawn and not by the counts. But we
 <em>can</em> order by counts if we want to. We will make use of the functions <code>reorder_within</code> and
 <code>scale_x_reordered</code> from the <code>tidytext</code> package.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="numerical-and-graphical-summaries.html#cb46-1" aria-hidden="true" tabindex="-1"></a>min_by_year <span class="sc">%&gt;%</span></span>
-<span id="cb46-2"><a href="numerical-and-graphical-summaries.html#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">num1_reordered =</span> tidytext<span class="sc">::</span><span class="fu">reorder_within</span>(num1, <span class="at">by=</span><span class="fu">desc</span>(freq), <span class="at">within=</span>year)) <span class="sc">%&gt;%</span></span>
-<span id="cb46-3"><a href="numerical-and-graphical-summaries.html#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>num1_reordered, <span class="at">y=</span>freq))<span class="sc">+</span></span>
-<span id="cb46-4"><a href="numerical-and-graphical-summaries.html#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
-<span id="cb46-5"><a href="numerical-and-graphical-summaries.html#cb46-5" aria-hidden="true" tabindex="-1"></a>  tidytext<span class="sc">::</span><span class="fu">scale_x_reordered</span>()<span class="sc">+</span></span>
-<span id="cb46-6"><a href="numerical-and-graphical-summaries.html#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>year, <span class="at">scales=</span><span class="st">&quot;free_x&quot;</span>)<span class="sc">+</span></span>
-<span id="cb46-7"><a href="numerical-and-graphical-summaries.html#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Minimum number&quot;</span>, <span class="at">y=</span><span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
+<pre class="r language-r"><code>min_by_year %&gt;%
+  mutate(num1_reordered = tidytext::reorder_within(num1, by=desc(freq), within=year)) %&gt;%
+  ggplot(aes(x=num1_reordered, y=freq))+
+  geom_col()+
+  tidytext::scale_x_reordered()+
+  facet_wrap(~year, scales=&quot;free_x&quot;)+
+  labs(x=&quot;Minimum number&quot;, y=&quot;Count&quot;)</code></pre>
 <p><img src="03-summaries_files/figure-html/unnamed-chunk-18-1.png" width="864" style="display: block; margin: auto;" /></p>
 <p>The above can be repeated using the maximum number.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="numerical-and-graphical-summaries.html#cb47-1" aria-hidden="true" tabindex="-1"></a>max_by_year <span class="ot">&lt;-</span> lottomax_wide <span class="sc">%&gt;%</span></span>
-<span id="cb47-2"><a href="numerical-and-graphical-summaries.html#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, num7) <span class="sc">%&gt;%</span></span>
-<span id="cb47-3"><a href="numerical-and-graphical-summaries.html#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">freq=</span><span class="fu">n</span>(), <span class="at">.groups=</span><span class="st">&quot;drop&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb47-4"><a href="numerical-and-graphical-summaries.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
-<span id="cb47-5"><a href="numerical-and-graphical-summaries.html#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by=</span>freq, <span class="at">n=</span><span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb47-6"><a href="numerical-and-graphical-summaries.html#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb47-7"><a href="numerical-and-graphical-summaries.html#cb47-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-8"><a href="numerical-and-graphical-summaries.html#cb47-8" aria-hidden="true" tabindex="-1"></a>max_by_year</span></code></pre></div>
-<pre><code>## # A tibble: 10 x 3
+<pre class="r language-r"><code>max_by_year &lt;- lottomax_wide %&gt;%
+  group_by(year, num7) %&gt;%
+  summarise(freq=n(), .groups=&quot;drop&quot;) %&gt;%
+  group_by(year) %&gt;%
+  slice_max(order_by=freq, n=3) %&gt;%
+  ungroup()
+
+max_by_year</code></pre>
+<pre class="language-r"><code>## # A tibble: 10 x 3
 ##    year   num7  freq
 ##    &lt;fct&gt; &lt;int&gt; &lt;int&gt;
 ##  1 2019     50    13
@@ -414,18 +357,18 @@ between 17 and 23), and at least one number between 30 and 50!</p>
 ##  8 2021     47     7
 ##  9 2021     49     7
 ## 10 2021     50     7</code></pre>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="numerical-and-graphical-summaries.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(max_by_year, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(num7), <span class="at">y=</span>freq))<span class="sc">+</span></span>
-<span id="cb49-2"><a href="numerical-and-graphical-summaries.html#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
-<span id="cb49-3"><a href="numerical-and-graphical-summaries.html#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>year, <span class="at">scales=</span><span class="st">&quot;free_x&quot;</span>)<span class="sc">+</span></span>
-<span id="cb49-4"><a href="numerical-and-graphical-summaries.html#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Maximum number&quot;</span>, <span class="at">y=</span><span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
+<pre class="r language-r"><code>ggplot(max_by_year, aes(x=factor(num7), y=freq))+
+  geom_col()+
+  facet_wrap(~year, scales=&quot;free_x&quot;)+
+  labs(x=&quot;Maximum number&quot;, y=&quot;Count&quot;)</code></pre>
 <p><img src="03-summaries_files/figure-html/unnamed-chunk-20-1.png" width="864" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="numerical-and-graphical-summaries.html#cb50-1" aria-hidden="true" tabindex="-1"></a>max_by_year <span class="sc">%&gt;%</span></span>
-<span id="cb50-2"><a href="numerical-and-graphical-summaries.html#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">num7_reordered =</span> tidytext<span class="sc">::</span><span class="fu">reorder_within</span>(num7, <span class="at">by=</span><span class="fu">desc</span>(freq), <span class="at">within=</span>year)) <span class="sc">%&gt;%</span></span>
-<span id="cb50-3"><a href="numerical-and-graphical-summaries.html#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>num7_reordered, <span class="at">y=</span>freq))<span class="sc">+</span></span>
-<span id="cb50-4"><a href="numerical-and-graphical-summaries.html#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
-<span id="cb50-5"><a href="numerical-and-graphical-summaries.html#cb50-5" aria-hidden="true" tabindex="-1"></a>  tidytext<span class="sc">::</span><span class="fu">scale_x_reordered</span>()<span class="sc">+</span></span>
-<span id="cb50-6"><a href="numerical-and-graphical-summaries.html#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>year, <span class="at">scales=</span><span class="st">&quot;free_x&quot;</span>)<span class="sc">+</span></span>
-<span id="cb50-7"><a href="numerical-and-graphical-summaries.html#cb50-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Maximum number&quot;</span>, <span class="at">y=</span><span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
+<pre class="r language-r"><code>max_by_year %&gt;%
+  mutate(num7_reordered = tidytext::reorder_within(num7, by=desc(freq), within=year)) %&gt;%
+  ggplot(aes(x=num7_reordered, y=freq))+
+  geom_col()+
+  tidytext::scale_x_reordered()+
+  facet_wrap(~year, scales=&quot;free_x&quot;)+
+  labs(x=&quot;Maximum number&quot;, y=&quot;Count&quot;)</code></pre>
 <p><img src="03-summaries_files/figure-html/unnamed-chunk-21-1.png" width="864" style="display: block; margin: auto;" /></p>
 </div>
 <div id="summary-statistics-for-minimum-and-maximum" class="section level3" number="3.4.4">
