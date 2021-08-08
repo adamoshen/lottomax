@@ -6,6 +6,13 @@ date: "`r format(Sys.Date(), '%B %d, %Y')`"
 site: bookdown::bookdown_site
 ---
 
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  echo=TRUE, message=FALSE, warning=FALSE,
+  class.source="language-r", class.output="language-r"
+)
+```
+
 # Introduction {-}
 
 This is a placeholder sentence.

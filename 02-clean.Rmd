@@ -1,7 +1,10 @@
 # Cleaning the data
 
 ```{r, include=FALSE}
-knitr::opts_chunk$set(echo=TRUE, warning=FALSE, message=FALSE)
+knitr::opts_chunk$set(
+  echo=TRUE, message=FALSE, warning=FALSE,
+  class.source="language-r", class.output="language-r"
+)
 ```
 
 ## Packages

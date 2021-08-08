@@ -1,7 +1,10 @@
 # Obtaining the data
 
 ```{r, include=FALSE}
-knitr::opts_chunk$set(echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE)
+knitr::opts_chunk$set(
+  echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE,
+  class.source="language-r", class.output="language-r"
+)
 ```
 
 ## Packages
