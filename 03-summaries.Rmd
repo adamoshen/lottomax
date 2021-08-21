@@ -8,6 +8,7 @@ knitr::opts_chunk$set(
 )
 ```
 
+
 ## Packages
 
 ```{r}
@@ -16,19 +17,6 @@ library(lubridate)
 theme_set(theme_bw())
 ```
 
-## Load the data
-
-```{r}
-lottomax_wide <- readRDS("./data/lottomax_wide.RDS")
-
-lottomax_wide
-```
-
-```{r}
-lottomax_long <- readRDS("./data/lottomax_long.RDS")
-
-lottomax_long
-```
 
 ## Plan
 
@@ -36,18 +24,25 @@ From the wide data:
 
 - Most frequent minimum (`num1`), most frequent maximum (`num7`)
 - Summary statistics for the minimum and maximum
-- Distribution of numbers for each slot, i.e. `num1`, `num2`, ..., `bonus`
 - Distribution of the sum of the seven main numbers
 - Sum of the seven main numbers with respect to time
 
 From the long data:
 
 - For the sake of illustration, repeat everything that was done for the wide data
+- Distribution of numbers for each slot, i.e. `num1`, `num2`, ..., `bonus`
 - Most frequent numbers in a given month
 - Co-occurrences
 
 
 ## Wide data
+
+```{r}
+lottomax_wide <- readRDS("./data/lottomax_wide.RDS")
+
+lottomax_wide
+```
+
 
 ### Most frequent minimums and maximums - overall
 
@@ -240,4 +235,116 @@ max_by_year %>%
 
 
 ### Summary statistics for minimum and maximum
+
+```{r}
+lottomax_wide %>%
+  select(num1, num7) %>%
+  sapply(summary)
+```
+
+
+### Distribution of the sum of the seven main numbers
+
+```{r}
+draw_sums <- lottomax_wide %>%
+  select(date, contains("num")) %>%
+  rowwise() %>%
+  mutate(total = sum(c_across(contains("num"))))
+
+draw_sums
+
+ggplot(draw_sums, aes(x=total))+
+  geom_histogram(bins=9)+
+  labs(x="Sum of seven main numbers", y="Frequency")
+```
+
+
+### Sum of the seven main numbers with respect to time
+
+I want to make an additional variable so that it will be easier to distinguish neighbouring months.
+Two colours will be used &mdash; one for even months and one for odd months.
+
+```{r}
+draw_sums <- draw_sums %>%
+  mutate(month_colour = factor(month(date) %% 2))
+```
+
+```{r}
+ggplot(draw_sums, aes(x=date, y=total))+
+  geom_point(aes(colour=month_colour), show.legend=FALSE) +
+  geom_line(alpha=0.5)+
+  scale_colour_manual(values=c("#07a707", "#4000c4"))+
+  scale_x_date(date_breaks="3 months", date_labels="%b '%y")+
+  labs(x="Date", y="Sum of seven main numbers")
+```
+
+This graph looks a bit squished. Might look better if we facet by year.
+
+```{r}
+draw_sums <- draw_sums %>%
+  mutate(year = factor(year(date)))
+
+ggplot(draw_sums, aes(x=date, y=total))+
+  geom_point(aes(colour=month_colour), show.legend=FALSE)+
+  geom_line(alpha=0.5)+
+  scale_colour_manual(values=c("#07a707", "#4000c4"))+
+  scale_x_date(date_breaks="3 months", date_labels="%b")+
+  facet_wrap(~year, nrow=3, scales="free_x")+
+  labs(x="Date", y="Sum of seven main numbers")
+```
+
+
+### Minimums and maximums over time
+
+```{r}
+min_max <- lottomax_wide %>%
+  select(year, date, num1, num7) %>%
+  mutate(month_colour = factor(month(date) %% 2))
+
+ggplot(min_max, aes(x=date))+
+  geom_point(aes(y=num1, colour=month_colour), show.legend=FALSE)+
+  geom_line(aes(y=num1), alpha=0.5)+
+  geom_point(aes(y=num7, colour=month_colour), show.legend=FALSE)+
+  geom_line(aes(y=num7), alpha=0.5)+
+  scale_colour_manual(values=c("#07a707", "#4000c4"))+
+  scale_x_date(date_breaks="3 months", date_labels="%b '%y")+
+  labs(x="Date", y="Number drawn")
+```
+
+Again, this looks a bit squished. Facet by year.
+
+```{r}
+ggplot(min_max, aes(x=date))+
+  geom_point(aes(y=num1, colour=month_colour), show.legend=FALSE)+
+  geom_line(aes(y=num1), alpha=0.5)+
+  geom_point(aes(y=num7, colour=month_colour), show.legend=FALSE)+
+  geom_line(aes(y=num7), alpha=0.5)+
+  scale_colour_manual(values=c("#07a707", "#4000c4"))+
+  scale_x_date(date_breaks="3 months", date_labels="%b")+
+  facet_wrap(~year, nrow=3, scales="free_x")+
+  labs(x="Date", y="Number drawn", caption="Minimum and maximum number drawn by date")
+```
+
+
+## Long data
+
+```{r}
+lottomax_long <- readRDS("./data/lottomax_long.RDS")
+
+lottomax_long
+```
+
+
+### Most frequent minimums and maximums - overall
+
+```{r}
+min_counts <- lottomax_long %>%
+  filter(role == "num1") %>%
+  count(number) %>%
+  arrange(desc(n))
+```
+
+
+
+
 
