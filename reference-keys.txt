@@ -12,10 +12,14 @@ wide-version
 long-version
 numerical-and-graphical-summaries
 packages-2
-load-the-data-1
 plan
 wide-data
 most-frequent-minimums-and-maximums---overall
 which-numbers-have-never-been-in-the-minimummaximums
 most-frequent-minimum-and-maximum---by-year
 summary-statistics-for-minimum-and-maximum
+distribution-of-the-sum-of-the-seven-main-numbers
+sum-of-the-seven-main-numbers-with-respect-to-time
+minimums-and-maximums-over-time
+long-data
+most-frequent-minimums-and-maximums---overall-1
